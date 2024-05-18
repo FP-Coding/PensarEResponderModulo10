@@ -17,6 +17,7 @@ import Modal from '@mui/material/Modal';
 
 import CriarTarefa from './CriarTarefa';
 import EditarTarefa from './EditarTarefa';
+import Login from '../login';
 
 //A função abaixo é usada para criar o array contendo os dados iniciais da listagem de tarefas.
 function createData(
@@ -45,6 +46,8 @@ const initialRows = [
 const ListarTarefa = () => {
   const [open, setOpen] = useState(false);
   const [openEditar, setOpenEditar] = useState(false);
+  const [openLogin, setOpenLogin] = useState(false);
+
   const [tarefas, setTarefas] = useState([]);
   const [tarefa, setTarefa] = useState();
   const [idTarefaSelecionada, setIdTarefaSelecionada] = useState([]);
@@ -52,6 +55,8 @@ const ListarTarefa = () => {
   const handleClose = () => setOpen(false);
   const handleOpenEditar = () => setOpenEditar(true);
   const handleCloseEditar = () => setOpenEditar(false);
+  const handleOpenLogin = () => setOpenLogin(true);
+  const handleCloseLogin = () => setOpenLogin(false);
 
   //O array definido acima é setado como conteúdo do state Tarefas na renderização inicial do componente.
   useEffect(() => {
@@ -135,6 +140,7 @@ const ListarTarefa = () => {
         </CardContent>
         <CardActions>
             <Button size="small" variant="contained" onClick={handleOpen}>Criar Tarefa</Button>
+            <Button size="small" variant="contained" onClick={handleOpenLogin} >Login</Button>
             <Button size="small" variant="outlined">Cancelar</Button>
       </CardActions> 
     </Card>
@@ -159,6 +165,18 @@ const ListarTarefa = () => {
       >
         <div>
           <EditarTarefa handleCloseEditar={handleCloseEditar} idTarefaSelecionada={idTarefaSelecionada} tarefas={tarefas} tarefa={tarefa} setTarefas={setTarefas} />
+        </div>
+      </Modal>  
+    </div>
+    <div>
+      <Modal
+        open={openLogin}
+        onClose={handleCloseLogin}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <div>
+          <Login handleCloseLogin={handleCloseLogin} />
         </div>
       </Modal>  
     </div>
